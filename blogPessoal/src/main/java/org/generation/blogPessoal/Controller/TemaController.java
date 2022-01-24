@@ -17,50 +17,46 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@RestController // esta classe comunica com o cliente
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/tema")
 public class TemaController {
-	
+
 	@Autowired
 	private TemaRepository repository;
-	
+
 	@GetMapping
-	public ResponseEntity<List<Tema>> getAll(){
+	public ResponseEntity<List<Tema>> getAll() {
 		return ResponseEntity.ok(repository.findAll());
 	}
-	
+
 	@GetMapping("/{id}")
-	public ResponseEntity<Tema> getById(@PathVariable long id){
+	public ResponseEntity<Tema> getById(@PathVariable long id) {
 		return repository.findById(id).map(resposta -> ResponseEntity.ok(resposta))
 				.orElse(ResponseEntity.notFound().build());
 	}
-	
+
 	@GetMapping("/decricao/{descricao}")
-	public ResponseEntity<List<Tema>> getByDescricao(@PathVariable String descricao){
+	public ResponseEntity<List<Tema>> getByDescricao(@PathVariable String descricao) {
 		return ResponseEntity.ok(repository.findAllByDescricaoContainingIgnoreCase(descricao));
 	}
 
-
 	@PostMapping
-	public ResponseEntity<Tema> postTema (@RequestBody Tema Tema){
-		 return ResponseEntity.status(HttpStatus.CREATED)
-				 .body(repository.save(Tema));
-		
+	public ResponseEntity<Tema> postTema(@RequestBody Tema Tema) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(Tema));
+
 	}
-	
+
 	@PutMapping
-	public ResponseEntity<Tema> putTema (@RequestBody Tema tema){
+	public ResponseEntity<Tema> putTema(@RequestBody Tema tema) {
 		return ResponseEntity.ok(repository.save(tema));
 	}
-	
+
 	@DeleteMapping("/{id}")
-	public ResponseEntity<?> deleteTema(@PathVariable long id){
-		return repository.findById(id)
-				.map(resposta ->{
-					repository.deleteById(id);
-					return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-				})
-				.orElse(ResponseEntity.notFound().build());
+	public ResponseEntity<?> deleteTema(@PathVariable long id) {
+		return repository.findById(id).map(resposta -> {
+			repository.deleteById(id);
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+		}).orElse(ResponseEntity.notFound().build());
 	}
 }

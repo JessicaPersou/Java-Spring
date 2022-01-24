@@ -17,19 +17,20 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Entity // cria a tabela
 @Table(name = "tb_temas") // atribui o nome da tabela
 public class Tema {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // torna ela chave primaria
 	private long id;
-	
+
 	@NotNull
 	@Size(min = 5, max = 500)
 	private String descricao;
 
-	@OneToMany(mappedBy = "tema", cascade = CascadeType.ALL) // qual objeto sera usado para chave estrangeira, sempre fica do lado de muitos
-	@JsonIgnoreProperties("tema") // evita recursividade do tema 
+	@OneToMany(mappedBy = "tema", cascade = CascadeType.ALL) // qual objeto sera usado para chave estrangeira, sempre
+																// fica do lado de muitos
+	@JsonIgnoreProperties("tema") // evita recursividade do tema
 	private List<Postagem> postagem;
-	
+
 	public long getId() {
 		return id;
 	}
@@ -53,7 +54,5 @@ public class Tema {
 	public void setPostagem(List<Postagem> postagem) {
 		this.postagem = postagem;
 	}
-	
-	
-	
+
 }
