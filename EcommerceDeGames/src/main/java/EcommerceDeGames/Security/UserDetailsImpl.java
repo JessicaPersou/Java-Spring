@@ -1,4 +1,4 @@
-package com.blogJess.Security;
+package EcommerceDeGames.Security;
 
 import java.util.Collection;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.blogJess.Model.Usuario;
+import EcommerceDeGames.Model.UsuarioModel;
 
 public class UserDetailsImpl implements UserDetails {
 	private static final long serialVersionUID = 1L;
@@ -16,7 +16,7 @@ public class UserDetailsImpl implements UserDetails {
 	private List<GrantedAuthority> authorities;
 
 
-	public UserDetailsImpl(Usuario usuario) {
+	public UserDetailsImpl(UsuarioModel usuario) {
 		this.userName = usuario.getUsuario();
 		this.password = usuario.getSenha();
 	}

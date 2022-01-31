@@ -21,7 +21,7 @@ public class BasicSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
-		auth.userDetailsService(userDetailsService);
+		auth.userDetailsService(userDetailsService); //informaçoes do bando de dados
 
 		auth.inMemoryAuthentication().withUser("root").password(passwordEncoder().encode("root"))
 				.authorities("ROLE_USER");
@@ -29,12 +29,12 @@ public class BasicSecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 
 	@Bean
-	public PasswordEncoder passwordEncoder() {
+	public PasswordEncoder passwordEncoder() { // classe que contém metodos de criptografia
 		return new BCryptPasswordEncoder();
 	}
 
 	@Override
-	protected void configure(HttpSecurity http) throws Exception {
+	protected void configure(HttpSecurity http) throws Exception { // se der alguma coisa errada temos uma excessão para um erro
 
 		http.authorizeRequests().antMatchers("/usuarios/logar").permitAll().antMatchers("/usuarios/cadastrar")
 				.permitAll().antMatchers(HttpMethod.OPTIONS).permitAll().anyRequest().authenticated().and().httpBasic()

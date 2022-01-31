@@ -1,4 +1,5 @@
-package com.blogJess.Model;
+package EcommerceDeGames.Model;
+
 /*Não terá anotação e nem validação pois será apenas para entregar uma resposta quando o usuario se logar*/
 public class UsuarioLogin {
 

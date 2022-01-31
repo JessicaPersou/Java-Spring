@@ -1,4 +1,4 @@
-package com.blogJess.Service;
+package EcommerceDeGames.Service;
 
 import java.nio.charset.Charset;
 import java.util.Optional;
@@ -10,9 +10,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.blogJess.Model.Usuario;
-import com.blogJess.Model.UsuarioLogin;
-import com.blogJess.Repository.UsuarioRepository;
+import EcommerceDeGames.Model.UsuarioLogin;
+import EcommerceDeGames.Model.UsuarioModel;
+import EcommerceDeGames.Repository.UsuarioRepository;
 
 
 @Service
@@ -21,7 +21,7 @@ public class UsuarioService {
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 	
-	public Optional<Usuario> cadastrarUsuario(Usuario usuario) {
+	public Optional<UsuarioModel> cadastrarUsuario(UsuarioModel usuario) {
 
 		if (usuarioRepository.findByUsuario(usuario.getUsuario()).isPresent())
 			return Optional.empty();
@@ -32,12 +32,12 @@ public class UsuarioService {
 	
 	}
 
-	public Optional<Usuario> atualizarUsuario(Usuario usuario) {
+	public Optional<UsuarioModel> atualizarUsuario(UsuarioModel usuario) {
 
 		
 		if(usuarioRepository.findById(usuario.getId()).isPresent()) {
 			
-			Optional<Usuario> buscaUsuario = usuarioRepository.findByUsuario(usuario.getUsuario());
+			Optional<UsuarioModel> buscaUsuario = usuarioRepository.findByUsuario(usuario.getUsuario());
 			
 			if ( (buscaUsuario.isPresent()) && ( buscaUsuario.get().getId() != usuario.getId()))
 				throw new ResponseStatusException(
@@ -55,7 +55,7 @@ public class UsuarioService {
 
 	public Optional<UsuarioLogin> autenticarUsuario(Optional<UsuarioLogin> usuarioLogin) {
 
-		Optional<Usuario> usuario = usuarioRepository.findByUsuario(usuarioLogin.get().getUsuario());
+		Optional<UsuarioModel> usuario = usuarioRepository.findByUsuario(usuarioLogin.get().getUsuario());
 
 		if (usuario.isPresent()) {
 			if (compararSenhas(usuarioLogin.get().getSenha(), usuario.get().getSenha())) {
