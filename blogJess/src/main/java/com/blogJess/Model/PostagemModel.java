@@ -41,6 +41,10 @@ public class PostagemModel {
 	private TemaModel tema; // chave estrangeira da classe tema no id
 
 
+	@ManyToOne
+	@JsonIgnoreProperties("postagem")
+	private Usuario usuario;
+	
 	public long getId() {
 		return id;
 	}

@@ -1,5 +1,7 @@
 package com.blogJess.Model;
 
+
+
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -39,9 +41,21 @@ public class Usuario {
 	private String Foto;
 	
 	
-	/*@OneToMany(mappedBy = "usuario", cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.REMOVE)
 	@JsonIgnoreProperties("usuario")
-	private List<PostagemModel> postagem;*/
+	private List<PostagemModel> postagem;
+	
+	public Usuario(long id, String nome, String usuario,String senha) {
+		this.id = id;
+		this.nome = nome;
+		this.usuario = usuario;
+		this.senha = senha;
+	}
+	
+	public Usuario() {
+		
+	}
+	
 	
 	public long getId() {
 		return id;
